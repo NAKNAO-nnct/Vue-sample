@@ -1,19 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input v-model="name" />
+    <button v-on:click="todoAdd">追加</button>
+
+    <ul>
+      <li v-for="item in list" v-bind:key="item.id">
+        {{ item.id }} : {{ item.name }}
+        <button v-on:click="todoRemove(index)">削除</button>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: "App",
+  data() {
+    return {
+      name: "todo",
+      list: [],
+      next_id: 1
+    };
+  },
+  methods: {
+    todoAdd: function() {
+      this.list.push({
+        id: this.next_id,
+        name: this.name
+      });
+      this.next_id += 1;
+    },
+    todoRemove: function(index) {
+      this.list.splice(index, 1);
+    }
   }
-}
+};
 </script>
 
 <style>
