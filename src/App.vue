@@ -28,7 +28,11 @@ export default {
         id: this.next_id,
         name: this.name
       });
+      // IDの更新
       this.next_id += 1;
+
+      // 追加ボックス内の文字の消去
+      this.name = "";
     },
     todoRemove: function(index) {
       this.list.splice(index, 1);
