@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p class="error">{{ message }}</p>
     <input v-model="name" />
     <button v-on:click="todoAdd">追加</button>
 
@@ -17,13 +18,21 @@ export default {
   name: "App",
   data() {
     return {
-      name: "todo",
+      name: "",
       list: [],
-      next_id: 1
+      next_id: 1,
+      message: ""
     };
   },
   methods: {
     todoAdd: function() {
+      // 値チェック
+      if (this.name.replace(" ", "").replace("　", "") == "") {
+        this.message = "無効な入力です";
+        return;
+      }
+
+      // listに追加
       this.list.push({
         id: this.next_id,
         name: this.name
@@ -33,6 +42,8 @@ export default {
 
       // 追加ボックス内の文字の消去
       this.name = "";
+
+      this.message = "";
     },
     todoRemove: function(index) {
       this.list.splice(index, 1);
@@ -49,5 +60,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.error {
+  color: red;
 }
 </style>
